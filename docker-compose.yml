@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  
+  item-app:
+    image: dockerraihan27/item-app:v1
+    ports:
+      - "80:8080" #port mapping agar diakses dari port 80 di host
+    depends_on:
+      - item-db #item-app berjalan setelah item-db diluncurkan
+    restart: always #restart policy agar selalu restart ketika terhenti
+
+  # 2.2 Service item-db
+  item-db:
+    image: mongo:3 #image mongo:3 dari Docker Hub
+    volumes:
+      - app-db:/data/db #volume bernama app-db dengan target /data/db di container
+    restart: always #restart policy
+
+volumes:
+  app-db:
