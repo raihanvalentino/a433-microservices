@@ -1,8 +1,16 @@
-FROM node:14.21-alpine as builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
+
+ARG VUE_APP_BACKEND
+ENV VUE_APP_BACKEND=$VUE_APP_BACKEND
+
+ENV NODE_OPTIONS="--openssl-legacy-provider"
+
 RUN npm run build
-EXPOSE 8000
-CMD [ "npm", "run", "serve" ]
+
+FROM nginx:1.27-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
