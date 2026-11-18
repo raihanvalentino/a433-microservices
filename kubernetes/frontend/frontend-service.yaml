@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: karsajobs-ui-service
 spec:
+  type: NodePort
   selector:
     app: karsajobs-ui
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
-  type: NodePort
+      port: 80
+      targetPort: 80
+      nodePort: 30081

@@ -16,4 +16,4 @@ spec:
       - name: karsajobs-ui
         image: dockerraihan27/karsajobs-ui:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 80
